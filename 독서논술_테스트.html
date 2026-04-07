@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>나는 어떤 독서논술 동물?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Noto Sans KR', sans-serif; background: #0D1B2A; color: #fff; min-height: 100vh; }
+.jua { font-family: 'Jua', sans-serif; }
+
+@keyframes fadeInUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+@keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
+@keyframes shimmer { 0% { background-position:-200% center; } 100% { background-position:200% center; } }
+@keyframes pop { 0% { transform:scale(1); } 50% { transform:scale(1.1); } 100% { transform:scale(1); } }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+.fadeInUp { animation: fadeInUp 0.5s ease forwards; }
+.float { animation: float 3s ease-in-out infinite; }
+.shimmer-btn {
+  background: linear-gradient(90deg, #FF6B6B, #FFE66D, #4ECDC4, #45B7D1, #FF6B6B);
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+.page { display:none; min-height:100vh; }
+.page.active { display:flex; flex-direction:column; }
+
+/* ── 공통 카드 ── */
+.card {
+  background: rgba(255,255,255,0.07);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.13);
+  backdrop-filter: blur(20px);
+}
+
+/* ── 버튼 ── */
+.btn {
+  width:100%; padding:14px; border-radius:14px; border:none;
+  font-size:16px; font-weight:800; cursor:pointer;
+  font-family:'Noto Sans KR',sans-serif;
+  transition: transform 0.15s, opacity 0.15s;
+}
+.btn:active { transform: scale(0.97); opacity:0.85; }
+.btn-primary { background: linear-gradient(135deg, #FF6B6B, #FFE66D); color:#1a1a2e; }
+.btn-secondary { background:rgba(255,255,255,0.1); color:#fff; border:1px solid rgba(255,255,255,0.25) !important; }
+.btn-teal { background: linear-gradient(135deg, #4ECDC4, #44A08D); color:#fff; }
+
+/* ── 입력 ── */
+input {
+  width:100%; padding:12px 16px; border-radius:12px;
+  border:2px solid rgba(255,255,255,0.2);
+  background:rgba(255,255,255,0.1); color:#fff;
+  font-size:16px; outline:none; font-family:'Noto Sans KR',sans-serif;
+  transition: border-color 0.2s;
+}
+input:focus { border-color: rgba(78,205,196,0.7); }
+input::placeholder { color: rgba(255,255,255,0.35); }
+
+/* ── 밸런스 버튼 ── */
+.bal-btn {
+  flex:1; padding:20px 14px; border-radius:20px; border:none;
+  color:#fff; cursor:pointer; text-align:center;
+  transition: all 0.22s ease;
+  font-family:'Noto Sans KR',sans-serif;
+}
+.bal-btn:hover { transform: scale(1.03); }
+.bal-a { background: rgba(255,107,107,0.15); border:2px solid rgba(255,107,107,0.4) !important; }
+.bal-b { background: rgba(78,205,196,0.15); border:2px solid rgba(78,205,196,0.4) !important; }
+.bal-a.selected { background: linear-gradient(135deg,#FF6B6B,#FF8E53); border-color:#FF6B6B !important; animation:pop 0.3s ease; }
+.bal-b.selected { background: linear-gradient(135deg,#4ECDC4,#44A08D); border-color:#4ECDC4 !important; animation:pop 0.3s ease; }
+
+/* ── 테이블 ── */
+table { width:100%; border-collapse:collapse; font-size:12px; }
+th { padding:8px 6px; color:rgba(255,255,255,0.5); font-weight:700; border-bottom:1px solid rgba(255,255,255,0.15); text-align:center; }
+td { padding:8px 6px; text-align:center; border-bottom:1px solid rgba(255,255,255,0.08); color:rgba(255,255,255,0.8); }
+
+/* ── 스피너 ── */
+.spinner { width:20px; height:20px; border:2px solid rgba(255,255,255,0.3); border-top-color:#fff; border-radius:50%; animation:spin 0.7s linear infinite; display:inline-block; }
+</style>
+</head>
+<body>
+
+<!-- ══════════ 홈 ══════════ -->
+<div class="page active" id="page-home" style="background:linear-gradient(160deg,#0D1B2A 0%,#1B2A4A 50%,#162032 100%); align-items:center; justify-content:center; padding:20px;">
+  <div style="max-width:420px;width:100%;text-align:center;">
+    <div style="margin-bottom:8px;">
+      <span style="font-size:18px;animation:float 2s ease-in-out infinite;display:inline-block;margin:0 4px;">⭐</span>
+      <span style="font-size:18px;animation:float 2.3s ease-in-out infinite;display:inline-block;margin:0 4px;">✨</span>
+      <span style="font-size:28px;animation:float 2.6s ease-in-out infinite;display:inline-block;margin:0 4px;">🌟</span>
+      <span style="font-size:18px;animation:float 2.9s ease-in-out infinite;display:inline-block;margin:0 4px;">✨</span>
+      <span style="font-size:18px;animation:float 3.2s ease-in-out infinite;display:inline-block;margin:0 4px;">⭐</span>
+    </div>
+    <div class="jua fadeInUp" style="font-size:28px;color:#FFE66D;letter-spacing:-1px;margin-bottom:4px;">나는 어떤</div>
+    <div class="jua fadeInUp" style="font-size:38px;background:linear-gradient(90deg,#FF6B6B,#FFE66D,#4ECDC4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px;animation-delay:0.1s;">독서논술 동물?</div>
+    <div class="fadeInUp" style="color:rgba(255,255,255,0.7);font-size:14px;margin-bottom:24px;animation-delay:0.2s;line-height:1.7;">
+      20가지 밸런스 게임으로 알아보는<br>나의 독서·글쓰기 스타일 🎮
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin-bottom:22px;" id="type-badges"></div>
+
+    <div class="card fadeInUp" style="padding:16px;margin-bottom:16px;text-align:left;animation-delay:0.3s;">
+      <div style="color:rgba(255,255,255,0.9);font-size:13px;line-height:1.9;">
+        🎯 총 <b style="color:#FFE66D;">20문항</b> · 약 <b style="color:#4ECDC4;">3분</b> 소요<br>
+        🎮 A와 B 중 더 나에게 가까운 것을 골라요<br>
+        ✅ 정답 없어요. 솔직하게 체크해요 ~
+      </div>
+    </div>
+
+    <button class="btn shimmer-btn fadeInUp" style="margin-bottom:10px;font-size:17px;animation-delay:0.4s;" onclick="goPage('info')">🚀 테스트 시작하기!</button>
+    <button class="btn btn-secondary" onclick="goPage('dash-login')">🔐 선생님 대시보드</button>
+  </div>
+</div>
+
+<!-- ══════════ 정보 입력 ══════════ -->
+<div class="page" id="page-info" style="background:linear-gradient(160deg,#0D1B2A,#1B2A4A); align-items:center; justify-content:center; padding:20px;">
+  <div style="max-width:400px;width:100%;" class="card" style="padding:28px;">
+    <div style="padding:28px;">
+      <div class="jua" style="font-size:26px;color:#FFE66D;text-align:center;margin-bottom:4px;">내 정보 입력</div>
+      <div style="color:rgba(255,255,255,0.5);font-size:13px;text-align:center;margin-bottom:22px;">선생님께 결과가 전달돼요 📨</div>
+
+      <div style="margin-bottom:13px;">
+        <label style="color:rgba(255,255,255,0.8);font-size:13px;font-weight:700;display:block;margin-bottom:6px;">✏️ 학년</label>
+        <input id="in-grade" placeholder="예: 6" type="number" min="1" max="6">
+      </div>
+      <div style="margin-bottom:13px;">
+        <label style="color:rgba(255,255,255,0.8);font-size:13px;font-weight:700;display:block;margin-bottom:6px;">✏️ 반</label>
+        <input id="in-ban" placeholder="예: 1" type="number" min="1" max="20">
+      </div>
+      <div style="margin-bottom:13px;">
+        <label style="color:rgba(255,255,255,0.8);font-size:13px;font-weight:700;display:block;margin-bottom:6px;">✏️ 번호</label>
+        <input id="in-num" placeholder="예: 15" type="number" min="1" max="40">
+      </div>
+      <div style="margin-bottom:20px;">
+        <label style="color:rgba(255,255,255,0.8);font-size:13px;font-weight:700;display:block;margin-bottom:6px;">✏️ 이름</label>
+        <input id="in-name" placeholder="예: 홍길동" type="text">
+      </div>
+
+      <button class="btn btn-primary" id="btn-start" onclick="startTest()" style="margin-bottom:10px;">테스트 시작! 🎮</button>
+      <button class="btn btn-secondary" onclick="goPage('home')">← 뒤로가기</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ 테스트 ══════════ -->
+<div class="page" id="page-test" style="background:linear-gradient(160deg,#0D1B2A,#1B2A4A); align-items:center; justify-content:center; padding:16px;">
+  <div style="max-width:440px;width:100%;">
+    <div style="text-align:center;margin-bottom:14px;">
+      <div id="user-label" style="color:rgba(255,255,255,0.45);font-size:12px;margin-bottom:8px;"></div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="flex:1;height:8px;border-radius:4px;background:rgba(255,255,255,0.1);overflow:hidden;">
+          <div id="progress-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#FF6B6B,#FFE66D);border-radius:4px;transition:width 0.4s ease;"></div>
+        </div>
+        <div id="q-counter" class="jua" style="color:#FFE66D;font-size:14px;min-width:50px;">1 / 20</div>
+      </div>
+    </div>
+
+    <div class="card fadeInUp" id="q-card" style="padding:24px 20px;margin-bottom:14px;text-align:center;">
+      <div id="q-emoji" style="font-size:48px;margin-bottom:10px;"></div>
+      <div class="jua" id="q-num-label" style="color:#FFE66D;font-size:16px;margin-bottom:4px;"></div>
+      <div class="jua" style="color:#fff;font-size:18px;">나에게 더 가까운 건?</div>
+    </div>
+
+    <div style="display:flex;gap:12px;align-items:stretch;margin-bottom:14px;">
+      <button class="bal-btn bal-a" id="btn-a" onclick="handleChoice('a')">
+        <div style="font-size:28px;margin-bottom:8px;">🅰️</div>
+        <div id="q-a" style="font-size:14px;font-weight:700;line-height:1.5;"></div>
+      </button>
+      <div style="display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <div class="jua" style="background:linear-gradient(135deg,#FFE66D,#FF6B6B);border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;color:#1a1a2e;font-size:13px;font-weight:900;box-shadow:0 4px 15px rgba(255,230,109,0.4);">VS</div>
+      </div>
+      <button class="bal-btn bal-b" id="btn-b" onclick="handleChoice('b')">
+        <div style="font-size:28px;margin-bottom:8px;">🅱️</div>
+        <div id="q-b" style="font-size:14px;font-weight:700;line-height:1.5;"></div>
+      </button>
+    </div>
+
+    <div id="q-dots" style="display:flex;justify-content:center;flex-wrap:wrap;gap:4px;"></div>
+  </div>
+</div>
+
+<!-- ══════════ 결과 ══════════ -->
+<div class="page" id="page-result" style="background:linear-gradient(160deg,#0D1B2A,#1B2A4A); padding:16px;">
+  <div style="max-width:480px;margin:0 auto;padding:16px 0;">
+    <div id="result-header" class="result-card" style="border-radius:24px;padding:28px 20px;text-align:center;margin-bottom:14px;"></div>
+    <div class="card" style="padding:20px;margin-bottom:12px;" id="result-axes"></div>
+    <div id="result-detail" style="border-radius:20px;padding:20px;margin-bottom:12px;border-width:2px;border-style:solid;"></div>
+    <div class="card" style="padding:16px;margin-bottom:12px;" id="result-strength"></div>
+    <div id="save-status" style="text-align:center;font-size:13px;margin-bottom:12px;color:#4ECDC4;">✅ 선생님께 결과가 전달되었어요!</div>
+    <button class="btn btn-teal" onclick="resetAll()">처음으로 돌아가기 🏠</button>
+  </div>
+</div>
+
+<!-- ══════════ 선생님 로그인 ══════════ -->
+<div class="page" id="page-dash-login" style="background:linear-gradient(160deg,#0D1B2A,#1B2A4A); align-items:center; justify-content:center; padding:20px;">
+  <div class="card" style="max-width:380px;width:100%;padding:28px;text-align:center;">
+    <div style="font-size:48px;margin-bottom:10px;">🔐</div>
+    <div class="jua" style="color:#FFE66D;font-size:24px;margin-bottom:4px;">선생님 대시보드</div>
+    <div style="color:rgba(255,255,255,0.5);font-size:13px;margin-bottom:22px;">비밀번호를 입력해 주세요</div>
+    <input type="password" id="pw-input" placeholder="비밀번호" style="margin-bottom:8px;" onkeydown="if(event.key==='Enter')checkPw()">
+    <div id="pw-error" style="color:#FF6B6B;font-size:13px;margin-bottom:8px;display:none;">비밀번호가 틀렸어요 🙅</div>
+    <button class="btn btn-primary" onclick="checkPw()" style="margin-bottom:10px;">입장하기</button>
+    <button class="btn btn-secondary" onclick="goPage('home')">← 뒤로</button>
+
+    <div style="margin-top:20px;padding:14px;background:rgba(255,230,109,0.08);border-radius:12px;border:1px solid rgba(255,230,109,0.2);">
+      <div style="color:#FFE66D;font-size:12px;font-weight:700;margin-bottom:8px;">⚙️ Google 시트 연결 설정</div>
+      <div style="color:rgba(255,255,255,0.6);font-size:11px;margin-bottom:8px;line-height:1.7;">Apps Script 웹앱 URL을 아래에 붙여넣으세요.<br>한 번만 설정하면 영구 저장됩니다.</div>
+      <input type="text" id="script-url-input" placeholder="https://script.google.com/macros/s/..." style="font-size:11px;margin-bottom:6px;" oninput="saveScriptUrl()">
+      <div id="url-saved-msg" style="color:#4ECDC4;font-size:11px;display:none;">✅ 저장됨</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ 대시보드 ══════════ -->
+<div class="page" id="page-dashboard" style="background:linear-gradient(160deg,#0D1B2A,#1B2A4A); padding:16px;">
+  <div style="max-width:640px;margin:0 auto;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+      <div>
+        <div class="jua" style="color:#FFE66D;font-size:22px;">📊 선생님 대시보드</div>
+        <div id="dash-count" style="color:rgba(255,255,255,0.6);font-size:13px;">불러오는 중...</div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button onclick="loadDash()" style="padding:8px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);color:#fff;font-size:13px;cursor:pointer;">🔄</button>
+        <button onclick="goPage('home')" style="padding:8px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);color:#fff;font-size:13px;cursor:pointer;">← 나가기</button>
+      </div>
+    </div>
+
+    <!-- QR -->
+    <div class="card" style="padding:16px;margin-bottom:12px;">
+      <div class="jua" style="color:#4ECDC4;font-size:15px;margin-bottom:10px;">🔗 학생 접속 안내</div>
+      <div style="display:flex;gap:14px;align-items:center;">
+        <img id="dash-qr" src="" alt="QR" style="width:80px;height:80px;border-radius:8px;background:#fff;padding:4px;">
+        <div>
+          <div style="color:rgba(255,255,255,0.7);font-size:12px;margin-bottom:6px;">QR 코드 스캔 또는 링크로 접속</div>
+          <div id="dash-url" style="background:rgba(0,0,0,0.3);border-radius:8px;padding:6px 10px;font-size:11px;color:#FFE66D;word-break:break-all;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 유형 분포 -->
+    <div class="card" style="padding:16px;margin-bottom:12px;">
+      <div class="jua" style="color:#FFE66D;font-size:15px;margin-bottom:10px;">🐾 유형 분포</div>
+      <div id="type-dist" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"></div>
+    </div>
+
+    <!-- 반 평균 -->
+    <div class="card" id="axis-avg-card" style="padding:16px;margin-bottom:12px;display:none;">
+      <div class="jua" style="color:#FFE66D;font-size:15px;margin-bottom:10px;">📈 우리 반 평균 성향</div>
+      <div id="axis-avg"></div>
+    </div>
+
+    <!-- 반 필터 -->
+    <div class="card" style="padding:16px;margin-bottom:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <div class="jua" style="color:#FFE66D;font-size:15px;">👥 학생별 결과</div>
+        <select id="ban-filter" onchange="filterTable()" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:8px;color:#fff;padding:4px 10px;font-size:13px;cursor:pointer;">
+          <option value="all">전체 반</option>
+        </select>
+      </div>
+      <div style="overflow-x:auto;">
+        <table id="result-table">
+          <thead><tr><th>학년</th><th>반</th><th>번</th><th>이름</th><th>유형</th></tr></thead>
+          <tbody id="result-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 수업 참고 -->
+    <div class="card" style="padding:16px;margin-bottom:12px;">
+      <div class="jua" style="color:#FFE66D;font-size:15px;margin-bottom:10px;">📝 수업 참고 메모</div>
+      <div id="lesson-memo"></div>
+    </div>
+
+    <div style="text-align:center;color:rgba(255,255,255,0.25);font-size:11px;margin-bottom:20px;">
+      데이터는 Google 스프레드시트에 저장됩니다
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════
+// 설정
+// ════════════════════════════════════════════
+const TEACHER_PW = "123456";
+const CURRENT_URL = location.href;
+
+// Apps Script URL (로컬스토리지에 저장)
+function getScriptUrl() {
+  return "https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbzOFsbfsz0Bw1D9hJa9RvXcwePV3MRJm_tbd2RknDJcned7Iwg6Kl2iJv97kdWS1Kx3/exec/exec";
+}function saveScriptUrl() {
+  const v = document.getElementById("script-url-input").value.trim();
+  localStorage.setItem("script_url", v);
+  const msg = document.getElementById("url-saved-msg");
+  msg.style.display = "block";
+  setTimeout(() => msg.style.display = "none", 1500);
+}
+
+// ════════════════════════════════════════════
+// 질문 데이터
+// ════════════════════════════════════════════
+const QUESTIONS = [
+  { emoji:"📚", a:"새 책을 펼쳤을 때 처음부터 꼼꼼히 다 읽는다", b:"목차 보고 흥미로운 부분만 골라 읽는다", aDir:"D", bDir:"B" },
+  { emoji:"✍️", a:"일기나 편지 쓸 때 내 감정을 꾸미지 않고 솔직하게 쓴다", b:"내 주장이 맞다는 걸 논리적으로 설명하는 게 더 재밌다", aDir:"E", bDir:"L" },
+  { emoji:"🎭", a:"책 주인공 입장이 되어서 감정이입하며 읽는다", b:"이 이야기가 현실에서 가능한지 따져보며 읽는다", aDir:"E", bDir:"L" },
+  { emoji:"📖", a:"한 권을 완전히 다 읽어야 다음 책을 시작한다", b:"여러 책을 동시에 읽어도 괜찮다", aDir:"D", bDir:"B" },
+  { emoji:"💬", a:"글 쓰기 전에 내용을 미리 계획하고 개요를 짠다", b:"일단 쓰기 시작하고 쓰다 보면 내용이 떠오른다", aDir:"P", bDir:"F" },
+  { emoji:"🌟", a:"방금 읽은 책 이야기를 친구에게 신나게 설명하고 싶다", b:"방금 읽은 책에서 느낀 점을 혼자 글로 써보고 싶다", aDir:"R", bDir:"W" },
+  { emoji:"🦁", a:"주인공이 어떤 감정을 느꼈는지가 가장 궁금하다", b:"주인공이 왜 그런 선택을 했는지 이유가 더 궁금하다", aDir:"E", bDir:"L" },
+  { emoji:"🗓️", a:"읽을 책 목록을 미리 정해두고 순서대로 읽는다", b:"그때그때 끌리는 책을 집어들어 읽는다", aDir:"P", bDir:"F" },
+  { emoji:"🔍", a:"한 작가의 책을 시리즈별로 다 찾아 읽는다", b:"다양한 작가의 책을 이것저것 읽어본다", aDir:"D", bDir:"B" },
+  { emoji:"✨", a:"마음에 드는 문장은 공책에 옮겨 적거나 외운다", b:"읽은 내용을 내 말로 요약하는 게 더 재밌다", aDir:"R", bDir:"W" },
+  { emoji:"🎯", a:"글쓸 때 독자가 공감할 수 있는 감동적인 이야기를 쓰고 싶다", b:"글쓸 때 읽는 사람을 설득시킬 수 있는 주장을 쓰고 싶다", aDir:"E", bDir:"L" },
+  { emoji:"🏆", a:"책을 읽고 독후감을 꼼꼼히 쓰는 게 뿌듯하다", b:"책을 읽고 친구들과 내용에 대해 토론하는 게 더 재밌다", aDir:"W", bDir:"R" },
+  { emoji:"🌈", a:"글 쓸 때 제목, 서론, 본론, 결론 순서를 꼭 지킨다", b:"글 쓸 때 형식보다 내가 하고 싶은 말이 담기면 된다", aDir:"P", bDir:"F" },
+  { emoji:"🦋", a:"이야기책(소설, 동화)을 읽을 때 가장 집중이 잘 된다", b:"정보책(과학, 역사, 인물)을 읽을 때 더 흥미롭다", aDir:"E", bDir:"L" },
+  { emoji:"💡", a:"한 주제에 대해 깊이 파고드는 글을 쓰고 싶다", b:"여러 주제를 가볍게 써보는 게 더 즐겁다", aDir:"D", bDir:"B" },
+  { emoji:"🎪", a:"책에서 인상적인 장면을 그림이나 만화로 그려보고 싶다", b:"책 내용에서 이어지는 뒷이야기를 직접 써보고 싶다", aDir:"R", bDir:"W" },
+  { emoji:"🌙", a:"글쓰기 전 충분히 생각한 뒤에 한 번에 완성한다", b:"초고를 빠르게 쓰고 나서 여러 번 고쳐 쓴다", aDir:"P", bDir:"F" },
+  { emoji:"🎵", a:"같은 책을 두 번 세 번 다시 읽어도 질리지 않는다", b:"한 번 읽은 책은 다시 읽기보다 새 책을 읽는다", aDir:"D", bDir:"B" },
+  { emoji:"🚀", a:"글에서 비유나 감각적 표현을 넣으면 더 살아있는 느낌이다", b:"글에서 근거와 예시를 넣으면 더 믿음직스럽다", aDir:"E", bDir:"L" },
+  { emoji:"🌊", a:"책 속 주인공처럼 나도 모험을 떠나고 싶다는 생각을 한다", b:"책 속 상황이 나라면 어떻게 해결했을지 생각해본다", aDir:"E", bDir:"L" },
+];
+
+// ════════════════════════════════════════════
+// 유형 정의
+// ════════════════════════════════════════════
+const TYPES = {
+  "RDEP": { animal:"🦉", name:"심오한 올빼미", eng:"The Deep Owl", color:"#5E35B1", bg:"linear-gradient(135deg,#EDE7F6,#D1C4E9)", border:"#9575CD", tag:"깊이 읽고 마음으로 느끼는", desc:"책 한 권을 정말 꼼꼼하게 읽고, 주인공의 감정에 깊이 공감하는 독자예요. 미리 계획하고 천천히 읽는 스타일이라 놓치는 게 없어요.", strength:"공감 능력 최고! 감동적인 독후감 잘 씀", lesson:"OREO 구조로 감성 독후감 → 비평적 읽기 도전", tip:"📝 이런 활동이 딱! 주인공에게 편지 쓰기, 감정 지도 그리기", books:"📚 추천 장르: 성장소설, 우정·가족 이야기", challenge:"🎯 올해 도전: 내 감정을 근거로 뒷받침하는 논술 써보기" },
+  "RDLP": { animal:"🦅", name:"예리한 독수리", eng:"The Sharp Eagle", color:"#1565C0", bg:"linear-gradient(135deg,#E3F2FD,#BBDEFB)", border:"#42A5F5", tag:"분석하고 판단하는", desc:"읽을 책을 미리 정하고 논리적으로 따져가며 읽어요. 등장인물의 선택이 옳은지 판단하는 걸 즐기고, 주장하는 글쓰기를 잘할 가능성이 높아요.", strength:"논리력 탁월! 비판적 독서 능력 우수", lesson:"주제 파악 → OREO 논술 → 독서 토론 진행", tip:"📝 이런 활동이 딱! 찬반 토론글, 책 속 오류 찾기", books:"📚 추천 장르: 역사, 과학, 철학 이야기 책", challenge:"🎯 올해 도전: 감성적 표현도 넣어 독자를 설득하는 글쓰기" },
+  "RBEF": { animal:"🦋", name:"자유로운 나비", eng:"The Free Butterfly", color:"#AD1457", bg:"linear-gradient(135deg,#FCE4EC,#F8BBD0)", border:"#F06292", tag:"다양하게 느끼고 자유롭게", desc:"다양한 책을 넓게 읽고 자유롭게 감정을 표현해요. 형식에 얽매이지 않고 자기만의 스타일로 글을 쓰는 창의적인 타입이에요.", strength:"창의력 최고! 자유로운 표현력 뛰어남", lesson:"창작 글쓰기 → 다양한 장르 독서 → 글 퇴고 연습", tip:"📝 이런 활동이 딱! 이야기 이어쓰기, 책 표지 바꾸기", books:"📚 추천 장르: 판타지, 모험, 다양한 단편 모음", challenge:"🎯 올해 도전: 내 글에 구조(서론-본론-결론) 입혀보기" },
+  "WDEP": { animal:"🐻", name:"진지한 곰", eng:"The Thoughtful Bear", color:"#4E342E", bg:"linear-gradient(135deg,#EFEBE9,#D7CCC8)", border:"#A1887F", tag:"깊이 느끼고 꼼꼼히 쓰는", desc:"읽은 것을 꼭 글로 남기는 성실한 작가예요. 한 주제에 대해 깊이 파고들며 감정을 담아 글을 써요.", strength:"꾸준함 최고! 감성 글쓰기 실력 탄탄", lesson:"일기·독후감 → 감성 에세이 → 논설문 도전", tip:"📝 이런 활동이 딱! 독서 일지, 마음 편지, 감상문", books:"📚 추천 장르: 일기 형식 소설, 심리 묘사 풍부한 책", challenge:"🎯 올해 도전: 내 감정에 논리적 근거 더하기" },
+  "WDLP": { animal:"🦊", name:"영리한 여우", eng:"The Clever Fox", color:"#E65100", bg:"linear-gradient(135deg,#FFF3E0,#FFE0B2)", border:"#FF9800", tag:"논리로 설득하는", desc:"논리적으로 생각하고 설득력 있게 글을 쓰는 진짜 논술 고수예요! 글 쓰기 전에 계획을 철저히 세우고 탄탄한 글을 완성해요.", strength:"논술 잠재력 폭발! 체계적 글쓰기 탁월", lesson:"OREO 논술 → 토론 발표 → 고급 논증 기법", tip:"📝 이런 활동이 딱! 주장·근거·예시 3단 구성, 반론 반박", books:"📚 추천 장르: 과학, 역사, 인물 전기", challenge:"🎯 올해 도전: 상대방 감정에 공감하는 논술 쓰기" },
+  "WBLF": { animal:"🐬", name:"활발한 돌고래", eng:"The Playful Dolphin", color:"#00838F", bg:"linear-gradient(135deg,#E0F7FA,#B2EBF2)", border:"#26C6DA", tag:"자유롭게 표현하는", desc:"쓰고 싶은 게 넘쳐나는 신나는 작가예요! 형식에 얽매이지 않고 다양한 주제로 자유롭게 글을 써요.", strength:"창작 에너지 최고! 다양한 글쓰기 즐김", lesson:"자유 글쓰기 → 창작 소설 → 퇴고 및 구조화", tip:"📝 이런 활동이 딱! 단편 소설, 일상 에세이, 브레인 라이팅", books:"📚 추천 장르: 이야기 만들기, 창작 동화", challenge:"🎯 올해 도전: 글에 기승전결 구조 의식하며 쓰기" },
+  "RBEL": { animal:"🐿️", name:"호기심 다람쥐", eng:"The Curious Squirrel", color:"#558B2F", bg:"linear-gradient(135deg,#F1F8E9,#DCEDC8)", border:"#8BC34A", tag:"넓고 감성적으로 탐구하는", desc:"다양한 책을 두루 읽으며 느끼는 게 많은 감성 독자예요. '왜?'라는 질문도 잘 던지고 여러 분야에 관심이 많아요.", strength:"폭넓은 독서량! 감성-논리 균형 잡힘", lesson:"다독 → 장르별 독서 전략 → 비교 독후감", tip:"📝 이런 활동이 딱! 책 소개 카드, 독서 브리핑", books:"📚 추천 장르: 모든 장르 도전! 특히 에세이", challenge:"🎯 올해 도전: 한 주제로 여러 책 비교해서 글쓰기" },
+  "WDLF": { animal:"🐙", name:"창의적 문어", eng:"The Creative Octopus", color:"#6A1B9A", bg:"linear-gradient(135deg,#F3E5F5,#E1BEE7)", border:"#AB47BC", tag:"논리와 자유를 함께 가진", desc:"깊이 파고드는 탐구력과 자유로운 표현력을 동시에 갖춘 독특한 타입이에요! 개성 넘치는 논술을 쓸 잠재력이 있어요.", strength:"논리+창의력 조합! 독특한 관점 글쓰기", lesson:"심화 독서 → 자유 논술 → 개성 있는 비평문", tip:"📝 이런 활동이 딱! 나만의 방식으로 책 분석하기", books:"📚 추천 장르: SF, 미스터리, 철학적 동화", challenge:"🎯 올해 도전: 나만의 독서 기록 방식 만들어보기" },
+};
+
+function getType(sc) {
+  const rw = sc.R >= sc.W ? "R" : "W";
+  const db = sc.D >= sc.B ? "D" : "B";
+  const el = sc.E >= sc.L ? "E" : "L";
+  const pf = sc.P >= sc.F ? "P" : "F";
+  return rw + db + el + pf;
+}
+
+// ════════════════════════════════════════════
+// 페이지 전환
+// ════════════════════════════════════════════
+function goPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ════════════════════════════════════════════
+// 초기화
+// ════════════════════════════════════════════
+let state = { grade:"", ban:"", num:"", name:"", qIdx:0, scores:{R:0,W:0,D:0,B:0,E:0,L:0,P:0,F:0}, choices:[], animating:false };
+
+window.addEventListener('DOMContentLoaded', () => {
+  // 유형 배지
+  const badges = document.getElementById('type-badges');
+  Object.values(TYPES).forEach(t => {
+    const el = document.createElement('div');
+    el.style.cssText = 'background:rgba(255,255,255,0.1);border-radius:20px;padding:5px 12px;font-size:13px;color:#fff;border:1px solid rgba(255,255,255,0.2);';
+    el.textContent = t.animal + ' ' + t.name;
+    badges.appendChild(el);
+  });
+
+  // URL 입력창 복원
+  const saved = getScriptUrl();
+  if (saved) document.getElementById('script-url-input').value = saved;
+
+  // 대시보드 URL/QR
+  document.getElementById('dash-url').textContent = CURRENT_URL;
+  document.getElementById('dash-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(CURRENT_URL)}`;
+});
+
+// ════════════════════════════════════════════
+// 정보 입력 → 테스트 시작
+// ════════════════════════════════════════════
+function startTest() {
+  const g = document.getElementById('in-grade').value.trim();
+  const b = document.getElementById('in-ban').value.trim();
+  const n = document.getElementById('in-num').value.trim();
+  const nm = document.getElementById('in-name').value.trim();
+  if (!g || !b || !n || !nm) { alert('모든 정보를 입력해 주세요!'); return; }
+  state = { grade:g, ban:b, num:n, name:nm, qIdx:0, scores:{R:0,W:0,D:0,B:0,E:0,L:0,P:0,F:0}, choices:[], animating:false };
+  renderQ();
+  goPage('test');
+}
+
+// ════════════════════════════════════════════
+// 테스트
+// ════════════════════════════════════════════
+function renderQ() {
+  const q = QUESTIONS[state.qIdx];
+  const total = QUESTIONS.length;
+  document.getElementById('progress-bar').style.width = Math.round(state.qIdx / total * 100) + '%';
+  document.getElementById('q-counter').textContent = (state.qIdx + 1) + ' / ' + total;
+  document.getElementById('user-label').textContent = `${state.grade}학년 ${state.ban}반 ${state.num}번 ${state.name}`;
+  document.getElementById('q-emoji').textContent = q.emoji;
+  document.getElementById('q-num-label').textContent = `Q${state.qIdx + 1}.`;
+  document.getElementById('q-a').textContent = q.a;
+  document.getElementById('q-b').textContent = q.b;
+  document.getElementById('btn-a').className = 'bal-btn bal-a';
+  document.getElementById('btn-b').className = 'bal-btn bal-b';
+  state.animating = false;
+
+  // 점 렌더
+  const dots = document.getElementById('q-dots');
+  dots.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.style.cssText = `width:10px;height:10px;border-radius:50%;transition:background 0.3s;background:${i < state.qIdx ? '#4ECDC4' : i === state.qIdx ? '#FFE66D' : 'rgba(255,255,255,0.2)'}`;
+    dots.appendChild(d);
+  });
+}
+
+function handleChoice(ab) {
+  if (state.animating) return;
+  state.animating = true;
+  document.getElementById('btn-' + ab).classList.add('selected');
+
+  const q = QUESTIONS[state.qIdx];
+  const dir = ab === 'a' ? q.aDir : q.bDir;
+  state.scores[dir]++;
+  state.choices.push(ab);
+
+  setTimeout(() => {
+    if (state.qIdx < QUESTIONS.length - 1) {
+      state.qIdx++;
+      renderQ();
+    } else {
+      showResult();
+    }
+  }, 380);
+}
+
+// ════════════════════════════════════════════
+// 결과
+// ════════════════════════════════════════════
+function showResult() {
+  const key = getType(state.scores);
+  const t = TYPES[key] || TYPES["RBEF"];
+  const sc = state.scores;
+
+  // 헤더
+  document.getElementById('result-header').style.cssText = `background:${t.bg};border-radius:24px;padding:28px 20px;text-align:center;margin-bottom:14px;border:3px solid ${t.border};box-shadow:0 8px 32px ${t.color}40`;
+  document.getElementById('result-header').innerHTML = `
+    <div style="font-size:72px;margin-bottom:8px;animation:float 3s ease-in-out infinite;">${t.animal}</div>
+    <div style="font-size:13px;color:${t.color};font-weight:600;margin-bottom:4px;">${t.tag}</div>
+    <div class="jua" style="font-size:30px;color:${t.color};margin-bottom:6px;">${t.name}</div>
+    <div style="font-size:12px;color:#666;margin-bottom:12px;">${t.eng} · #${key}</div>
+    <div style="background:rgba(255,255,255,0.7);border-radius:8px;padding:6px 12px;font-size:12px;color:#555;display:inline-block;">
+      ${state.grade}학년 ${state.ban}반 ${state.num}번 <b>${state.name}</b>
+    </div>
+  `;
+
+  // 4축 그래프
+  const axes = [
+    { left:"읽기파 📚", right:"쓰기파 ✍️", lv:sc.R, rv:sc.W },
+    { left:"깊이파 🔍", right:"넓이파 🌈", lv:sc.D, rv:sc.B },
+    { left:"감성파 💖", right:"논리파 🧠", lv:sc.E, rv:sc.L },
+    { left:"계획파 📋", right:"자유파 🎨", lv:sc.P, rv:sc.F },
+  ];
+  document.getElementById('result-axes').innerHTML = `
+    <div class="jua" style="color:#FFE66D;font-size:16px;margin-bottom:14px;">📊 나의 독서논술 성향 분석</div>
+    ${axes.map(ax => {
+      const pct = Math.round(ax.rv / (ax.lv + ax.rv + 0.01) * 100);
+      const lWin = ax.lv >= ax.rv;
+      return `<div style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;">
+          <span style="color:${lWin ? '#4ECDC4' : 'rgba(255,255,255,0.4)'};">${ax.left}</span>
+          <span style="color:${!lWin ? '#FF6B6B' : 'rgba(255,255,255,0.4)'};">${ax.right}</span>
+        </div>
+        <div style="height:10px;border-radius:5px;background:rgba(255,255,255,0.1);overflow:hidden;">
+          <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,#4ECDC4,#FF6B6B);border-radius:5px;"></div>
+        </div>
+      </div>`;
+    }).join('')}
+  `;
+
+  // 상세
+  const det = document.getElementById('result-detail');
+  det.style.background = t.bg;
+  det.style.borderColor = t.border;
+  det.innerHTML = `
+    <div style="font-size:14px;color:#333;line-height:1.8;margin-bottom:14px;">${t.desc}</div>
+    ${[t.tip, t.books, t.challenge].map(item => `
+      <div style="background:rgba(255,255,255,0.6);border-radius:10px;padding:10px 14px;font-size:13px;color:#333;line-height:1.6;margin-bottom:8px;">${item}</div>
+    `).join('')}
+  `;
+
+  // 강점
+  document.getElementById('result-strength').innerHTML = `
+    <div style="color:rgba(255,255,255,0.7);font-size:13px;margin-bottom:6px;">💪 나의 강점</div>
+    <div style="color:#FFE66D;font-size:15px;font-weight:700;">${t.strength}</div>
+  `;
+
+  // 저장
+  const ss = document.getElementById('save-status');
+  ss.textContent = '💾 저장 중...';
+  ss.style.color = 'rgba(255,255,255,0.5)';
+  ss.style.animation = 'pulse 1s infinite';
+
+  saveToSheet({ ...state, typeKey: key, typeName: t.name }).then(ok => {
+    ss.style.animation = '';
+    if (ok) {
+      ss.textContent = '✅ 선생님께 결과가 전달되었어요!';
+      ss.style.color = '#4ECDC4';
+    } else {
+      ss.textContent = '⚠️ 저장 실패 (선생님께 직접 알려주세요)';
+      ss.style.color = '#FFE66D';
+    }
+  });
+
+  goPage('result');
+}
+
+// ════════════════════════════════════════════
+// Google Sheets 저장/불러오기
+// ════════════════════════════════════════════
+async function saveToSheet(data) {
+  const url = getScriptUrl();
+  if (!url) return false;
+  try {
+    const params = new URLSearchParams({
+      action: "save",
+      grade: data.grade, ban: data.ban, num: data.num, name: data.name,
+      typeKey: data.typeKey, typeName: data.typeName,
+      scores: JSON.stringify(data.scores)
+    });
+    const res = await fetch(url + "?" + params.toString(), { method: "GET" });
+    const json = await res.json();
+    return json.ok;
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
+}
+
+async function loadFromSheet() {
+  const url = getScriptUrl();
+  if (!url) return null;
+  try {
+    const res = await fetch(url + "?action=load");
+    const json = await res.json();
+    return json.ok ? json.data : null;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+}
+
+// ════════════════════════════════════════════
+// 선생님 로그인
+// ════════════════════════════════════════════
+function checkPw() {
+  const v = document.getElementById('pw-input').value;
+  const err = document.getElementById('pw-error');
+  if (v === TEACHER_PW) {
+    err.style.display = 'none';
+    document.getElementById('pw-input').value = '';
+    goPage('dashboard');
+    loadDash();
+  } else {
+    err.style.display = 'block';
+  }
+}
+
+// ════════════════════════════════════════════
+// 대시보드
+// ════════════════════════════════════════════
+let allResults = [];
+
+async function loadDash() {
+  document.getElementById('dash-count').textContent = '불러오는 중... ⏳';
+  const url = getScriptUrl();
+
+  if (!url) {
+    document.getElementById('dash-count').textContent = '⚠️ 아래에서 Apps Script URL을 먼저 설정해 주세요';
+    renderDash([]);
+    return;
+  }
+
+  const data = await loadFromSheet();
+  if (data === null) {
+    document.getElementById('dash-count').textContent = '⚠️ 데이터를 불러올 수 없어요. URL을 확인해 주세요.';
+    renderDash([]);
+    return;
+  }
+  allResults = data;
+  renderDash(allResults);
+}
+
+function renderDash(data) {
+  document.getElementById('dash-count').textContent = `총 ${data.length}명 참여`;
+
+  // 유형 분포
+  const counts = {};
+  Object.keys(TYPES).forEach(k => counts[k] = 0);
+  data.forEach(r => { if (counts[r.typeKey] !== undefined) counts[r.typeKey]++; });
+  const dist = document.getElementById('type-dist');
+  dist.innerHTML = Object.entries(TYPES).map(([key, t]) => `
+    <div style="background:${t.bg};border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:10px;border:2px solid ${t.border};">
+      <span style="font-size:28px;">${t.animal}</span>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:${t.color};">${t.name}</div>
+        <div style="font-size:20px;font-weight:900;color:#1F2937;">${counts[key]}명</div>
+      </div>
+    </div>
+  `).join('');
+
+  // 축 평균
+  if (data.length > 0) {
+    const avg = {R:0,W:0,D:0,B:0,E:0,L:0,P:0,F:0};
+    data.forEach(r => { if(r.scores) Object.keys(avg).forEach(k => avg[k] += Number(r.scores[k]||0)); });
+    Object.keys(avg).forEach(k => avg[k] = (avg[k]/data.length).toFixed(1));
+    document.getElementById('axis-avg-card').style.display = 'block';
+    document.getElementById('axis-avg').innerHTML = [
+      {label:"읽기 ↔ 쓰기", l:"읽기파", r:"쓰기파", lk:"R", rk:"W"},
+      {label:"깊이 ↔ 넓이", l:"깊이파", r:"넓이파", lk:"D", rk:"B"},
+      {label:"감성 ↔ 논리", l:"감성파", r:"논리파", lk:"E", rk:"L"},
+      {label:"계획 ↔ 자유", l:"계획파", r:"자유파", lk:"P", rk:"F"},
+    ].map(ax => {
+      const total = parseFloat(avg[ax.lk]) + parseFloat(avg[ax.rk]);
+      const pct = total > 0 ? parseFloat(avg[ax.rk]) / total * 100 : 50;
+      return `<div style="margin-bottom:12px;">
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.7);margin-bottom:4px;">
+          <span>${ax.l} (${avg[ax.lk]})</span>
+          <span style="color:#FFE66D;">${ax.label}</span>
+          <span>${ax.r} (${avg[ax.rk]})</span>
+        </div>
+        <div style="height:10px;border-radius:5px;background:rgba(255,255,255,0.1);overflow:hidden;">
+          <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,#4ECDC4,#FF6B6B);border-radius:5px;"></div>
+        </div>
+      </div>`;
+    }).join('');
+  } else {
+    document.getElementById('axis-avg-card').style.display = 'none';
+  }
+
+  // 반 필터
+  const bans = [...new Set(data.map(r => r.ban))].sort((a,b) => a-b);
+  const sel = document.getElementById('ban-filter');
+  sel.innerHTML = '<option value="all">전체 반</option>' + bans.map(b => `<option value="${b}">${b}반</option>`).join('');
+
+  filterTable();
+
+  // 수업 메모
+  const memo = document.getElementById('lesson-memo');
+  memo.innerHTML = Object.entries(TYPES).map(([key, t]) => {
+    const students = data.filter(r => r.typeKey === key);
+    if (!students.length) return '';
+    return `<div style="background:${t.bg};border:2px solid ${t.border};border-radius:14px;padding:12px 14px;margin-bottom:10px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
+        <span style="font-size:24px;">${t.animal}</span>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:${t.color};">${t.name} (${students.length}명)</div>
+          <div style="font-size:11px;color:#555;">${t.lesson}</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#444;">${students.map(s=>`${s.grade}-${s.ban}-${s.num} ${s.name}`).join(' · ')}</div>
+    </div>`;
+  }).join('');
+}
+
+function filterTable() {
+  const ban = document.getElementById('ban-filter').value;
+  const filtered = ban === 'all' ? allResults : allResults.filter(r => String(r.ban) === String(ban));
+  const tbody = document.getElementById('result-tbody');
+  tbody.innerHTML = filtered.length === 0
+    ? `<tr><td colspan="5" style="text-align:center;color:rgba(255,255,255,0.4);padding:20px;">아직 참여한 학생이 없어요</td></tr>`
+    : filtered.map(r => {
+        const t = TYPES[r.typeKey] || TYPES["RBEF"];
+        return `<tr>
+          <td>${r.grade}</td><td>${r.ban}</td><td>${r.num}</td>
+          <td style="color:#fff;font-weight:700;">${r.name}</td>
+          <td><span style="background:${t.bg};color:${t.color};border:1px solid ${t.border};border-radius:8px;padding:2px 8px;font-size:11px;font-weight:700;white-space:nowrap;">${t.animal} ${t.name}</span></td>
+        </tr>`;
+      }).join('');
+}
+
+// ════════════════════════════════════════════
+// 리셋
+// ════════════════════════════════════════════
+function resetAll() {
+  state = { grade:"", ban:"", num:"", name:"", qIdx:0, scores:{R:0,W:0,D:0,B:0,E:0,L:0,P:0,F:0}, choices:[], animating:false };
+  ['in-grade','in-ban','in-num','in-name'].forEach(id => document.getElementById(id).value = '');
+  goPage('home');
+}
+</script>
+</body>
+</html>
